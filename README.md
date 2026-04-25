@@ -25,7 +25,7 @@
 
 <div align="center">
 
-<img src="https://github-profile-trophy.vercel.app/?username=yMaosama01&theme=tokyonight&column=8&rank=SSS,SS,S,AAA,AA,A,B,C&margin-w=15&margin-h=15&no-bg=true" />
+<img src="https://gh-trophy.cdnsoft.net/?username=Maosama01&theme=tokyonight&column=8&rank=SSS,SS,S,AAA,AA,A,B,C&margin-w=15&margin-h=15&no-bg=true" />
 
 </div>
 

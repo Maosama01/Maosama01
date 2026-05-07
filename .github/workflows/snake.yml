@@ -1,50 +1,26 @@
-name: Generate Snake
+name: Generate Snake Animation
 
-# Controls when the action will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   schedule:
-    # every 12 hours
-    - cron: "0 */12 * * *"
-  
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-  
-  # Also run on any push to main
-  push:
-    branches: [ main ]
+    - cron: "0 0 * * *"   # Runs every day at midnight
+  workflow_dispatch:        # Allows manual trigger
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  generate:
     runs-on: ubuntu-latest
-    
-    # Add permissions for the GITHUB_TOKEN
-    permissions:
-      contents: write
+    timeout-minutes: 5
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      # Generates the snake  
-      - name: Generate snake game from github contribution grid
-        uses: Platane/snk@v3
+      - name: Generate snake SVG
+        uses: Platane/snk/svg-only@v3
         with:
-          github_user_name: Maosama01
+          github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/github-contribution-grid-snake.svg
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v4
+            dist/github-snake.svg
+            dist/github-snake-dark.svg?palette=github-dark
+
+      - name: Push output to output branch
+        uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: output
           build_dir: dist
